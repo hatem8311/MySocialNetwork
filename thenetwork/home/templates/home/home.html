@@ -1,0 +1,33 @@
+{%extends 'base.html'%}
+{%block body%}
+<div class="container">
+  <div class="col-md-8">
+    <h2>Home</h2>
+    <form  method="post">
+      {%csrf_token%}
+      {{form.post}}
+      <br>
+      <button type="submit" name="button">submit</button>
+    </form>
+    <h2>{{text}}</h2>
+    {%for post in posts%}
+    <h1>{{post.post}}</h1>
+    <p>Posted by {{post.user.get_full_name}} on {{post.created}}</p>
+    {%endfor%}
+  </div>
+  <div class="col-md-4">
+<h2>Other people</h2>
+{%for user in users %}
+<a href="{% url 'account:view_profile_with_pk' pk=user.pk %}">
+                <h3>{{ user.username }}</h3>
+            </a>
+
+{%endfor%}
+  </div>
+
+</div>
+
+{%endblock%}
+##{{form.as_p}} is for rendering the form in the file the this is the template for
+##the user field is the actual user so it has arttubutes in it
+##post now is an object for posts
